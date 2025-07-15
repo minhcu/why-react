@@ -1,8 +1,6 @@
 import "./App.css";
-import { Blog } from "./pages/Blog";
+import {PostsPage} from "@/posts/PostsPage";
 
-function App() {
-  return <Blog />;
+export default function App() {
+  return <PostsPage />;
 }
-
-export default App;

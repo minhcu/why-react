@@ -10,7 +10,8 @@ interface PostCard {
   lastReadAt: string;
 }
 
-const PostCard = (props: PostCard) => {
+export const PostCard = (props: PostCard) => {
+  console.log('Render post card')
   function formatTimeAgo(dateString: string): string {
     const diffMs = Date.now() - new Date(dateString).getTime();
     const diffMinutes = Math.floor(diffMs / (1000 * 60));

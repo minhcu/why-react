@@ -1,6 +1,6 @@
-import AddNewPost from "./addNewPost";
+import {AddNewPost} from "./add-new-post.tsx";
 
-const Header = () => {
+export const Header = () => {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
       <div>
@@ -15,5 +15,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

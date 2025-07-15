@@ -1,33 +1,19 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Check, ChevronDown } from "lucide-react";
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import type { DropdownInterface } from "@/pages/Blog";
+import {useState} from "react";
+import {Button} from "@/components/ui/button.tsx";
+import {Check, ChevronDown} from "lucide-react";
+import {Command, CommandGroup, CommandItem, CommandList,} from "@/components/ui/command.tsx";
+import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover.tsx";
+import {cn} from "@/lib/utils.ts";
+import type {DropdownOption} from "@/posts/PostsPage.tsx";
 
 interface DropdownProps {
-  option: DropdownInterface;
-  options: DropdownInterface[];
-  setSelectedOption: (option: DropdownInterface) => void;
+  value: DropdownOption;
+  options: DropdownOption[];
+  onSelectOption: (option: DropdownOption) => void;
 }
 
-const Dropdown = ({ option, options, setSelectedOption }: DropdownProps) => {
+const Dropdown = ({ value, options, onSelectOption }: DropdownProps) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(option.value);
-
-  useEffect(() => {
-    setValue(option.value);
-  }, [option]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,7 +24,7 @@ const Dropdown = ({ option, options, setSelectedOption }: DropdownProps) => {
           aria-expanded={open}
           className="w-full sm:w-[180px] flex items-center justify-between"
         >
-          {option.label}
+          {value.label}
           <ChevronDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -51,8 +37,7 @@ const Dropdown = ({ option, options, setSelectedOption }: DropdownProps) => {
                   key={item.value}
                   value={item.value}
                   onSelect={() => {
-                    setValue(item.value);
-                    setSelectedOption(item);
+                    onSelectOption(item);
                     setOpen(false);
                   }}
                 >
@@ -60,7 +45,7 @@ const Dropdown = ({ option, options, setSelectedOption }: DropdownProps) => {
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === item.value ? "opacity-100" : "opacity-0"
+                      value.value === item.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
