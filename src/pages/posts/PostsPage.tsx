@@ -1,8 +1,8 @@
-import {Filter} from "@/posts/filter/post-filter.tsx";
-import {Header} from "@/posts/header/post-header.tsx";
-import {PostList} from "@/posts/post-list/post-list.tsx";
+import { Filter } from "./filter/post-filter.tsx";
+import { Header } from "./header/post-header.tsx";
+import { PostList } from "./post-list/post-list.tsx";
 import { useEffect, useState } from "react";
-import { type PostData, posts } from "@/posts/shared/data/posts.data.ts";
+import { type PostData, posts } from "./shared/data/posts.data.ts";
 
 export interface DropdownOption {
   value: string;
@@ -38,16 +38,16 @@ export const PostsPage = () => {
     const getCategoryOptions = (posts: PostData[]): DropdownOption[] => {
       const unique = Array.from(new Set(posts.map((post) => post.categories)));
       return [
-        {value: "All Categories", label: "All Categories"},
-        ...unique.map((cat) => ({value: cat, label: cat})),
+        { value: "All Categories", label: "All Categories" },
+        ...unique.map((cat) => ({ value: cat, label: cat })),
       ];
     };
 
     const getAuthorOptions = (posts: PostData[]): DropdownOption[] => {
       const unique = Array.from(new Set(posts.map((post) => post.author)));
       return [
-        {value: "All Authors", label: "All Authors"},
-        ...unique.map((author) => ({value: author, label: author})),
+        { value: "All Authors", label: "All Authors" },
+        ...unique.map((author) => ({ value: author, label: author })),
       ];
     };
 

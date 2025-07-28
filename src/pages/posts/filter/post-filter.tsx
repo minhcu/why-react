@@ -1,4 +1,4 @@
-import type { DropdownOption } from "@/posts/PostsPage.tsx";
+import type { DropdownOption } from "../PostsPage.tsx";
 import Dropdown from "./dropdown-filter.tsx";
 import Search from "./search-input.tsx";
 

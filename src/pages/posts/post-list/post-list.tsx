@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { posts, type PostData } from "@/posts/shared/data/posts.data.ts";
-import type { DropdownOption } from "@/posts/PostsPage.tsx";
-import {PostCard} from "@/posts/post-list/post-detail-card.tsx";
+import { posts, type PostData } from "../shared/data/posts.data.ts";
+import type { DropdownOption } from "../PostsPage.tsx";
+import {PostCard} from "../post-list/post-detail-card.tsx";
 
 interface PostListProps {
   searchValue: string;
