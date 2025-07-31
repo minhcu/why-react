@@ -2,7 +2,18 @@ export interface RouteTo {
     name?: string;
     path?: string;
 }
+
+interface Route {
+    path: string;
+    name?: string;
+    component?: React.ComponentType<any>;
+    params?: { [key: string]: string };
+    queries?: { [key: string]: string };
+    children?: { [key: string]: Route };
+}
+
 export const useRouter = () => {
+    const routes: { [key: string]: Route } = {};
 
     function navigate(to: string | RouteTo) {
         if (typeof to === "string") {
@@ -17,6 +28,7 @@ export const useRouter = () => {
         }
     }
     return {
+        routes,
         navigate
     }
 }

@@ -5,7 +5,10 @@ export const Button = ({
     size = "medium",
     icon,
     iconPosition = "left",
+    className = "",
+    ...props
 }: {
+    className?: string;
     icon?: string;
     iconPosition?: "left" | "right";
     size?: "small" | "medium" | "large";
@@ -17,10 +20,10 @@ export const Button = ({
             ? "text-sm"
             : size === "large"
                 ? "text-lg"
-                : "text-base");
+                : "text-base") + className
 
     return <>
-        <button className={classNames}>
+        <button className={classNames} {...props}>
             {icon && (iconPosition === 'left') && <Icon name={icon} iconNode={[]} />}
             {children}
             {icon && (iconPosition === 'right') && <Icon name={icon} iconNode={[]} />}
