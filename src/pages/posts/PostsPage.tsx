@@ -1,8 +1,9 @@
 import { Filter } from "./filter/post-filter.tsx";
 import { Header } from "./header/post-header.tsx";
 import { PostList } from "./post-list/post-list.tsx";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { type PostData, posts } from "./shared/data/posts.data.ts";
+
 
 export interface DropdownOption {
   value: string;
@@ -33,6 +34,30 @@ export const PostsPage = () => {
     []
   );
   const [authorOptions, setAuthorOptions] = useState<DropdownOption[]>([]);
+
+  const filteredPosts = useMemo(() => {
+    return posts.filter((post) => {
+      const matchesSearch = post.title
+        .toLowerCase()
+        .includes(searchValue.toLowerCase());
+      const matchesCategory =
+        selectedCategory.value === "All Categories" ||
+        selectedCategory.value === post.categories;
+      const matchesAuthor =
+        selectedAuthors.value === "All Authors" ||
+        selectedAuthors.value === post.author;
+      return matchesSearch && matchesCategory && matchesAuthor;
+    }).sort((a, b) => {
+      if (selectedNews.value === "Newest First") {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      } else if (selectedNews.value === "Oldest First") {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      } else if (selectedNews.value === "Title A - Z") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+  }, [searchValue, selectedCategory, selectedAuthors, selectedNews]);
 
   useEffect(function loadAPI() {
     const getCategoryOptions = (posts: PostData[]): DropdownOption[] => {
@@ -75,10 +100,8 @@ export const PostsPage = () => {
         />
 
         <PostList
-          searchValue={searchValue}
-          selectedCategory={selectedCategory}
-          selectedAuthors={selectedAuthors}
-          selectedNews={selectedNews}
+          posts={filteredPosts}
+          totalPosts={posts.length}
         />
       </div>
     </div>

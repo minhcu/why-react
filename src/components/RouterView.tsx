@@ -9,6 +9,7 @@ const routes = [
     { path: "/post/:id", component: PostPage },
 ]
 
+// Init root object to store routes
 const root: {
     [key: string]: {
         [key: string]: any;
@@ -16,6 +17,7 @@ const root: {
     };
 } = {}
 
+// Populate the root object with pre-defined routes
 for (const route of routes) {
     const levels = route.path.split("/").filter(Boolean);
     if (levels.length === 0) {
@@ -33,6 +35,45 @@ for (const route of routes) {
         }
         current['component'] = route.component;
     }
+}
+
+// Function to get the current route based on the URL path
+function getCurrentRoute() {
+    const path = window.location.pathname;
+    const levels = path.split("/").filter(Boolean);
+    let current = root;
+
+    const params: { [key: string]: string } = {};
+    const queries: { [key: string]: string } = {};
+
+    for (const level of levels) {
+        if (current[level]) {
+            current = current[level];
+
+            if(level.startsWith(":")) {
+                // If the level starts with ":", it's a dynamic segment
+                params[level] = level;
+            }
+
+        } else {
+            return null; // Route not found
+        }
+    }
+
+    // If the current route does not have a component, return error component with error message
+    // if (!current['component']) {
+    //     current['component'] = ReactErrorComponent
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams) {
+        urlParams.forEach((value, key) => {
+            queries[key] = value;
+        });
+    }
+    
+    current['params'] = params;
+    current['queries'] = queries;
+    return current;
 }
 
 export const RouterView = () => {

@@ -1,6 +1,6 @@
 import "./App.css";
-import { RouterView } from "@/components/router/RouterView";
-import { Link } from "./components/router/RouterLink";
+import { RouterView } from "@/components/RouterView";
+import { Link } from "./components/RouterLink";
 
 export default function App() {
   return <>

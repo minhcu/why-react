@@ -1,64 +1,20 @@
-import { useEffect, useState } from "react";
-import { posts, type PostData } from "../shared/data/posts.data.ts";
-import type { DropdownOption } from "../PostsPage.tsx";
-import {PostCard} from "../post-list/post-detail-card.tsx";
-
-interface PostListProps {
-  searchValue: string;
-  selectedCategory: DropdownOption;
-  selectedAuthors: DropdownOption;
-  selectedNews: DropdownOption;
-}
+import { type PostData } from "../shared/data/posts.data.ts";
+import { PostCard } from "../post-list/post-detail-card.tsx";
 
 export const PostList = ({
-  searchValue,
-  selectedCategory,
-  selectedAuthors,
-  selectedNews,
-}: PostListProps) => {
-  const [dataPosts, setDataPosts] = useState<PostData[]>([]);
-
-  function filterPosts() {
-    const result = posts.filter((post) => {
-      const resultFilterSearch = post.title
-          .toLowerCase()
-          .includes(searchValue.toLowerCase());
-      const resultFilerCategory =
-          selectedCategory.value === "All Categories" ||
-          selectedCategory.value === post.categories;
-      const resultFilerAuthors =
-          selectedAuthors.value === "All Authors" ||
-          selectedAuthors.value === post.author;
-      return resultFilterSearch && resultFilerCategory && resultFilerAuthors;
-    });
-
-    if (selectedNews.value === "Newest First") {
-      result.sort(
-          (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-    } else if (selectedNews.value === "Oldest First") {
-      result.sort(
-          (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-    }
-    return result;
-  }
-
-  const filteredPosts = filterPosts();
-
-  useEffect(() => {
-    setDataPosts(posts);
-  }, []);
-
+  posts = [],
+  totalPosts = 0,
+}: {
+  posts: PostData[];
+  totalPosts: number;
+}) => {
   return (
     <>
       <p className="mb-6 text-sm text-muted-foreground">
-        Showing {filteredPosts?.length} of {dataPosts.length} posts
+        Showing {posts.length} of {totalPosts} posts
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPosts.map((post, index) => (
+        {posts.map((post, index) => (
           <PostCard
             key={index}
             thumbnail={post.thumbnailURL}
