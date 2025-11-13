@@ -1,0 +1,22 @@
+name: Continuous Deployment
+
+on:
+    push:
+        branches:
+            - main
+
+env:
+    NODE_VERSION: 20
+
+jobs:
+    deploy:
+        name: Deploy Application
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v5
+            - name: Build docker
+              run: docker build . -t my-app:latest:${{ github.sha }}
+
+            - name: Echo docker
+              run: docker image list

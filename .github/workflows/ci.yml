@@ -23,15 +23,5 @@ jobs:
             - name: Run tests
               run: npm run nottest
 
-    lint:
-        name: Run Linting
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v5
-
-            - uses: actions/setup-node@v6
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-
-            - name: Run linting
+            - name: Run lint
               run: npm run notlint
