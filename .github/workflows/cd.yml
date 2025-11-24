@@ -22,7 +22,7 @@ jobs:
 
             - uses: actions/checkout@v5
             - name: Build docker
-              run: docker build . -t my-app:${{ github.sha }}
+              run: docker build . -t bluminhcu/test3:${{ github.sha }}
 
             - name: Echo docker
-              run: docker push my-app:${{ github.sha }}
+              run: docker push bluminhcu/test3:${{ github.sha }}
