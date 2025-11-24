@@ -1,0 +1,19 @@
+name: Testing Composite
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v5
+
+    - uses: actions/setup-node@v6
+      with:
+        node-version: 22
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run lint
+      run: npm run notlint
+
+    - name: Run tests
+      run: npm run test

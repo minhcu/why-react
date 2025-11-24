@@ -14,28 +14,4 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v5
-
-            - uses: actions/setup-node@v6
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-            
-            - name: Install dependencies
-              run: npm install
-
-            - name: Run tests
-              run: npm run test
-
-    lint:
-        name: Run Linting
-        runs-on: ubuntu-latest
-
-        steps:
-            - uses: actions/checkout@v5
-
-            - uses: actions/setup-node@v6
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-
-            - name: Run lint
-              run: npm run notlint
+            - uses: ./.github/
