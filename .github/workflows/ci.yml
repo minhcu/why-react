@@ -14,5 +14,4 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v5
-            - uses: ./.github/composite
+            - uses: minhcu/why-react@v1.0.0

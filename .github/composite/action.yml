@@ -3,6 +3,7 @@ name: Testing Composite
 runs:
   using: "composite"
   steps:
+
     - uses: actions/setup-node@v6
       with:
         node-version: 22
